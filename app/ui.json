@@ -297,20 +297,32 @@
             "handlers": {},
             "visible": true
         },
-        "n10qc4ssank492vu": {
-            "id": "n10qc4ssank492vu",
-            "type": "button",
+        "4rqa2qlh7o9zzwb1": {
+            "id": "4rqa2qlh7o9zzwb1",
+            "type": "html",
             "content": {
-                "text": "Go to YouTube : @{yt_title}",
-                "icon": "youtube",
-                "buttonTextColor": "#00c9b9",
-                "separatorColor": "#00c9b9"
+                "styles": "{\n  \"padding\": \"16px\",\n  \"min-height\": \"64px\",\n  \"min-width\": \"64px\",\n  \"border-radius\": \"8px\",\n  \"background\": \"linear-gradient(90deg, rgb(39,204,185) 0%, rgb(35,203,184) 100%)\"\n}",
+                "htmlInside": "<h2><center><a href=@{yt_url} target=\"_blank\">Go to Youtube: @{yt_title}</a></center></h2>",
+                "cssClasses": "",
+                "attrs": "",
+                "element": ""
             },
             "parentId": "k7nxc70zxx1ea8mx",
             "position": 3,
-            "handlers": {
-                "ss-click": "handle_yt_button_click"
+            "handlers": {},
+            "visible": true
+        },
+        "32dnqt3w20loo73b": {
+            "id": "32dnqt3w20loo73b",
+            "type": "heading",
+            "content": {
+                "text": "If you input all 6 sectors, you can see the title and use the following button.",
+                "headingType": "h3",
+                "alignment": "center"
             },
+            "parentId": "4rqa2qlh7o9zzwb1",
+            "position": 0,
+            "handlers": {},
             "visible": true
         }
     }

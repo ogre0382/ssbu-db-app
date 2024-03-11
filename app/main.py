@@ -8,24 +8,26 @@ from module.bq_db import SmashDatabase
 #print(webbrowser.get())
 
 print(sys.path)
-subprocess.call('ls -l /opt/render/project/.render/'.split())
+#subprocess.call('ls -l /opt/render/project/.render/'.split())
 
 # EVENT HANDLERS
 
 def update(state):
     _update_show_df(state)
     _update_datetime_select(state)
-    _update_yt_button(state)    
+    _update_yt_url(state)
+    _update_yt_title(state)
 
 def handle_yt_button_click(state):
-    main_df = state["main_df"]
-    show_df = state["show_df"]
-    if len(show_df)==1: 
-        main_df = main_df.set_index("game_start_datetime")
-        print(show_df.iloc[0,5])
-        webbrowser.open_new_tab(main_df.at[f'{show_df.iloc[0,5]}', 'game_start_url'])
-    else:
-        webbrowser.open_new_tab("https://www.youtube.com/")
+    # main_df = state["main_df"]
+    # show_df = state["show_df"]
+    # if len(show_df)==1: 
+    #     main_df = main_df.set_index("game_start_datetime")
+    #     print(show_df.iloc[0,5])
+    #     webbrowser.open_new_tab(main_df.at[f'{show_df.iloc[0,5]}', 'game_start_url'])
+    # else:
+    #     webbrowser.open_new_tab("https://www.youtube.com/")
+    pass
 
 # LOAD DATA
 
@@ -33,9 +35,9 @@ def _get_main_df():
     ssbu_db = SmashDatabase('ssbu_dataset')
     main_df = ssbu_db.select_analysis_data()
     main_df.loc[:, 'target_player_is_win'] = main_df.loc[:, 'target_player_is_win'].astype(str)
-    # Pandas dfへの置換操作のまとめ https://qiita.com/kazetof/items/992638be821a617b900a
-    main_df.target_player_is_win[main_df.target_player_is_win == "True"] = "Win"
-    main_df.target_player_is_win[main_df.target_player_is_win == "False"] = "Lose"
+    # [Python] pandas 条件抽出した行の特定の列に、一括で値を設定する https://note.com/kohaku935/n/n5836a09b96a6
+    main_df.loc[main_df["target_player_is_win"]=="True", "target_player_is_win"] = "Win"
+    main_df.loc[main_df["target_player_is_win"]=="False", "target_player_is_win"] = "Lose"
     return main_df
 
 def _merge_df(main_df, filter_columns=[[]], querys=[], new_column=[]):
@@ -98,9 +100,13 @@ def _get_show_df():
     main_df = _get_main_df()
     return main_df[[
         'target_player_name', 'chara_name_1p', 'chara_name_2p',
-        'category', 'target_player_is_win', 'game_start_datetime',
-        'title'
+        'category', 'target_player_is_win', 'game_start_datetime'
     ]]
+    # show_df = main_df[['title', 'game_start_url']]
+    # #'<a href="http://www.google.com/" target="_blank">Button</a>'
+    # show_df = show_df.replace('https(.*)', r"<a href=https\1 target='_blank'> https\1 </a>", regex=True)
+    # #show_df['game_start_url'] = f"<a href={show_df['game_start_url']} target='_blank'>{show_df['game_start_url']}</a>"
+    # return show_df
 
 # UPDATES
 
@@ -125,7 +131,14 @@ def _update_datetime_select(state):
         ['game_start_datetime'], 'game_start_datetime', 'game_start_datetime', df=_filter_df(state, filter_datetime=False)
     )
 
-def _update_yt_button(state):
+def _update_yt_url(state):
+    show_df = state["show_df"]
+    if len(show_df)==1: 
+        main_df = state["main_df"]
+        main_df = main_df.set_index("game_start_datetime")
+        state["yt_url"] = main_df.at[f'{show_df.iloc[0,5]}', 'game_start_url']
+
+def _update_yt_title(state):
     show_df = state["show_df"]
     if len(show_df)==1: 
         main_df = state["main_df"]
@@ -154,6 +167,7 @@ initial_state = ss.init_state({
     "category_select": _get_category_select(),
     "win_lose_select": _get_win_lose_select(),
     "datetime_select": _get_datetime_select(),
-    "yt_title": "{Please input all 6 selectors}",
+    "yt_url": "https://www.youtube.com/",
+    "yt_title": "[YouTube Title]",
     "show_df": _get_show_df()
 })
