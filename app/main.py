@@ -111,7 +111,7 @@ def _get_show_df():
 # UPDATES
 
 def _filter_df(state, filter_datetime=True):
-    show_df = _get_show_df()
+    show_df = state["buf_df"]
     if state["filter"]["player"]!=None:
         show_df = show_df.query(f'target_player_name == "{state["filter"]["player"]}"')
     if state["filter"]["fighter"]!=None:
@@ -160,7 +160,6 @@ initial_state = ss.init_state({
         "win_lose": None,
         "datetime": None
     },
-    "metrics": {},
     "player_select": _get_player_select(),
     "fighter_select": _get_fighter_select(),
     "vs_fighter_select": _get_vs_fighter_select(),
@@ -169,5 +168,6 @@ initial_state = ss.init_state({
     "datetime_select": _get_datetime_select(),
     "yt_url": "https://www.youtube.com/",
     "yt_title": "[YouTube Title]",
-    "show_df": _get_show_df()
+    "show_df": _get_show_df(),
+    "buf_df": _get_show_df()
 })
