@@ -1,0 +1,317 @@
+{
+    "metadata": {
+        "streamsync_version": "0.3.0"
+    },
+    "components": {
+        "root": {
+            "id": "root",
+            "type": "root",
+            "content": {
+                "appName": "My App"
+            },
+            "parentId": null,
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "oh1zom0uia74t5gh": {
+            "id": "oh1zom0uia74t5gh",
+            "type": "columns",
+            "content": {},
+            "parentId": "m3v78e3u2kblrcwl",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "m3v78e3u2kblrcwl": {
+            "id": "m3v78e3u2kblrcwl",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "oh1zom0uia74t5gh",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "o14jiyxa4jyeyf7e": {
+            "id": "o14jiyxa4jyeyf7e",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "oh1zom0uia74t5gh",
+            "position": 1,
+            "handlers": {},
+            "visible": true
+        },
+        "k7nxc70zxx1ea8mx": {
+            "id": "k7nxc70zxx1ea8mx",
+            "type": "page",
+            "content": {
+                "key": "viewer",
+                "pageMode": ""
+            },
+            "parentId": "root",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "uojfzy9ieosetokc": {
+            "id": "uojfzy9ieosetokc",
+            "type": "header",
+            "content": {
+                "text": "SSBU 1on1 DataBase Viewer APP",
+                "cssClasses": "",
+                "accentColor": "#00c9b9"
+            },
+            "parentId": "k7nxc70zxx1ea8mx",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "86ogb2k64723a6wt": {
+            "id": "86ogb2k64723a6wt",
+            "type": "button",
+            "content": {
+                "text": "Download SSBU 1on1 YouTube Collection APP",
+                "buttonTextColor": "#00c9b9",
+                "icon": "download",
+                "separatorColor": "#00c9b9"
+            },
+            "parentId": "uojfzy9ieosetokc",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "3t2gnmddugdu8qa4": {
+            "id": "3t2gnmddugdu8qa4",
+            "type": "columns",
+            "content": {},
+            "parentId": "k7nxc70zxx1ea8mx",
+            "position": 1,
+            "handlers": {},
+            "visible": true
+        },
+        "w1usu619j1zuddwm": {
+            "id": "w1usu619j1zuddwm",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "3t2gnmddugdu8qa4",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "dcr79i5kl4p1aw8o": {
+            "id": "dcr79i5kl4p1aw8o",
+            "type": "selectinput",
+            "content": {
+                "label": "Player",
+                "options": "@{player_select}",
+                "accentColor": "#00c9b9"
+            },
+            "parentId": "w1usu619j1zuddwm",
+            "position": 0,
+            "handlers": {
+                "ss-option-change": "update"
+            },
+            "binding": {
+                "eventType": "ss-option-change",
+                "stateRef": "filter.player"
+            },
+            "visible": true
+        },
+        "te3vkz69edk70dey": {
+            "id": "te3vkz69edk70dey",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "3t2gnmddugdu8qa4",
+            "position": 1,
+            "handlers": {},
+            "visible": true
+        },
+        "wtqhqxczzbnq465e": {
+            "id": "wtqhqxczzbnq465e",
+            "type": "selectinput",
+            "content": {
+                "label": "Fighter",
+                "options": "@{fighter_select}",
+                "accentColor": "#00c9b9"
+            },
+            "parentId": "te3vkz69edk70dey",
+            "position": 0,
+            "handlers": {
+                "ss-option-change": "update"
+            },
+            "binding": {
+                "eventType": "ss-option-change",
+                "stateRef": "filter.fighter"
+            },
+            "visible": true
+        },
+        "tr125jpidbhha1xa": {
+            "id": "tr125jpidbhha1xa",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "3t2gnmddugdu8qa4",
+            "position": 2,
+            "handlers": {},
+            "visible": true
+        },
+        "ds0cecmh0w7ic784": {
+            "id": "ds0cecmh0w7ic784",
+            "type": "selectinput",
+            "content": {
+                "label": "vs Fighter",
+                "options": "@{vs_fighter_select}",
+                "accentColor": "#00c9b9"
+            },
+            "parentId": "tr125jpidbhha1xa",
+            "position": 0,
+            "handlers": {
+                "ss-option-change": "update"
+            },
+            "binding": {
+                "eventType": "ss-option-change",
+                "stateRef": "filter.vs_fighter"
+            },
+            "visible": true
+        },
+        "ra8hszfe33jdo857": {
+            "id": "ra8hszfe33jdo857",
+            "type": "columns",
+            "content": {},
+            "parentId": "k7nxc70zxx1ea8mx",
+            "position": 2,
+            "handlers": {},
+            "visible": true
+        },
+        "xzbjm0hr9pd8n6k7": {
+            "id": "xzbjm0hr9pd8n6k7",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "ra8hszfe33jdo857",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "o3sjq2gpnggiz978": {
+            "id": "o3sjq2gpnggiz978",
+            "type": "selectinput",
+            "content": {
+                "label": "Category",
+                "accentColor": "#00c9b9",
+                "options": "@{category_select}"
+            },
+            "parentId": "xzbjm0hr9pd8n6k7",
+            "position": 0,
+            "handlers": {
+                "ss-option-change": "update"
+            },
+            "binding": {
+                "eventType": "ss-option-change",
+                "stateRef": "filter.category"
+            },
+            "visible": true
+        },
+        "taf0oexkvh5lfxgh": {
+            "id": "taf0oexkvh5lfxgh",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "ra8hszfe33jdo857",
+            "position": 1,
+            "handlers": {},
+            "visible": true
+        },
+        "5dcuzrn577hmm08g": {
+            "id": "5dcuzrn577hmm08g",
+            "type": "selectinput",
+            "content": {
+                "label": "Win or Lose",
+                "options": "@{win_lose_select}",
+                "accentColor": "#00c9b9"
+            },
+            "parentId": "taf0oexkvh5lfxgh",
+            "position": 0,
+            "handlers": {
+                "ss-option-change": "update"
+            },
+            "binding": {
+                "eventType": "ss-option-change",
+                "stateRef": "filter.win_lose"
+            },
+            "visible": true
+        },
+        "9b8nqcqmjp3kteb3": {
+            "id": "9b8nqcqmjp3kteb3",
+            "type": "column",
+            "content": {
+                "width": "1"
+            },
+            "parentId": "ra8hszfe33jdo857",
+            "position": 2,
+            "handlers": {},
+            "visible": true
+        },
+        "wex69b6oojf1qa7f": {
+            "id": "wex69b6oojf1qa7f",
+            "type": "selectinput",
+            "content": {
+                "label": "Datetime",
+                "options": "@{datetime_select}",
+                "accentColor": "#00c9b9"
+            },
+            "parentId": "9b8nqcqmjp3kteb3",
+            "position": 0,
+            "handlers": {
+                "ss-option-change": "update"
+            },
+            "binding": {
+                "eventType": "ss-option-change",
+                "stateRef": "filter.datetime"
+            },
+            "visible": true
+        },
+        "7ek84wfegx1gp4lx": {
+            "id": "7ek84wfegx1gp4lx",
+            "type": "dataframe",
+            "content": {
+                "dataframe": "@{show_df}",
+                "enableSearch": "",
+                "showIndex": "no",
+                "displayRowCount": "",
+                "wrapText": "yes"
+            },
+            "parentId": "k7nxc70zxx1ea8mx",
+            "position": 4,
+            "handlers": {},
+            "visible": true
+        },
+        "n10qc4ssank492vu": {
+            "id": "n10qc4ssank492vu",
+            "type": "button",
+            "content": {
+                "text": "Go to YouTube : @{yt_title}",
+                "icon": "youtube",
+                "buttonTextColor": "#00c9b9",
+                "separatorColor": "#00c9b9"
+            },
+            "parentId": "k7nxc70zxx1ea8mx",
+            "position": 3,
+            "handlers": {
+                "ss-click": "handle_yt_button_click"
+            },
+            "visible": true
+        }
+    }
+}
