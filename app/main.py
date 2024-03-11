@@ -8,10 +8,7 @@ from module.bq_db import SmashDatabase
 #print(webbrowser.get())
 
 print(sys.path)
-<<<<<<< HEAD
 subprocess('ls -l /opt/render/project/.render/'.split())
-=======
->>>>>>> a000e3a946c4866cf66596a27215dfedb2b6b06e
 
 # EVENT HANDLERS
 
