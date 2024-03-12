@@ -113,14 +113,14 @@ def _update_datetime_select(state):
 
 def _update_yt_url(state):
     show_df = state["show_df"]
-    if len(show_df)==1: 
+    if all(v not in state["filter"].values() for v in [None]*6): 
         main_df = state["main_df"]
         main_df = main_df.set_index("game_start_datetime")
         state["yt_url"] = main_df.at[f'{show_df.iloc[0,5]}', 'game_start_url']
 
 def _update_yt_title(state):
     show_df = state["show_df"]
-    if len(show_df)==1: 
+    if all(v not in state["filter"].values() for v in [None]*6): 
         main_df = state["main_df"]
         main_df = main_df.set_index("game_start_datetime")
         state["yt_title"] = main_df.at[f'{show_df.iloc[0,5]}', 'title']
