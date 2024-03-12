@@ -1,14 +1,6 @@
 import pandas as pd
-import subprocess
 import streamsync as ss
-import sys
-import webbrowser
 from module.bq_db import SmashDatabase
-
-#print(webbrowser.get())
-
-print(sys.path)
-#subprocess.call('ls -l /opt/render/project/.render/'.split())
 
 # EVENT HANDLERS
 
@@ -17,17 +9,6 @@ def update(state):
     _update_datetime_select(state)
     _update_yt_url(state)
     _update_yt_title(state)
-
-def handle_yt_button_click(state):
-    # main_df = state["main_df"]
-    # show_df = state["show_df"]
-    # if len(show_df)==1: 
-    #     main_df = main_df.set_index("game_start_datetime")
-    #     print(show_df.iloc[0,5])
-    #     webbrowser.open_new_tab(main_df.at[f'{show_df.iloc[0,5]}', 'game_start_url'])
-    # else:
-    #     webbrowser.open_new_tab("https://www.youtube.com/")
-    pass
 
 # LOAD DATA
 
@@ -49,9 +30,7 @@ def _merge_df(main_df, filter_columns=[[]], querys=[], new_column=[]):
         select_dfs.append(select_df)
     return pd.concat(select_dfs, axis=0)
 
-def _get_select(filter_columns=[[]], sort_column=None, select_column=None, querys=[], new_column=[], df=None):
-    if df is None: main_df = _get_main_df()
-    else: main_df = df
+def _get_select(main_df=_get_main_df(), filter_columns=[[]], sort_column=None, select_column=None, querys=[], new_column=[]):
     print(main_df)
     if len(new_column)==0: select_df = main_df[filter_columns]
     else: select_df = _merge_df(main_df, filter_columns, querys, new_column)
@@ -128,7 +107,8 @@ def _filter_df(state, filter_datetime=True):
 
 def _update_datetime_select(state):
     state["datetime_select"] = _get_select(
-        ['game_start_datetime'], 'game_start_datetime', 'game_start_datetime', df=_filter_df(state, filter_datetime=False)
+        _filter_df(state, filter_datetime=False),
+        ['game_start_datetime'], 'game_start_datetime', 'game_start_datetime'
     )
 
 def _update_yt_url(state):
