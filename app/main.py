@@ -1,19 +1,14 @@
 import pandas as pd
 import streamsync as ss
-from bs4 import BeautifulSoup
 from module.bq_db import SmashDatabase
 
 # EVENT HANDLERS
 
 def update(state):
     _update_datetime_select(state)
-    _update_yt_url_title(state)
-    _update_show_df(state)
-    
-def reset(state):
-    state["show_df"] = state["buf_df"]
-    for k in state["filter"].get_mutations_as_dict().keys():
-        state["filter"][k] = None
+    #_update_yt_url_title(state)
+    #_update_show_df(state)
+    _update_show_table(state)
 
 # LOAD DATA
 
@@ -94,7 +89,8 @@ def _get_show_df():
     main_df = _get_main_df()
     return main_df[[
         'target_player_name', 'chara_name_1p', 'chara_name_2p',
-        'category', 'target_player_is_win', 'game_start_datetime'
+        'category', 'target_player_is_win', 'game_start_datetime',
+        'game_start_url'
     ]]
     # show_df = main_df[['title', 'game_start_url']]
     # #'<a href="http://www.google.com/" target="_blank">Button</a>'
@@ -102,17 +98,14 @@ def _get_show_df():
     # #show_df['game_start_url'] = f"<a href={show_df['game_start_url']} target='_blank'>{show_df['game_start_url']}</a>"
     # return show_df
     
-def _get_show_table():
-    show_df = _get_main_df()
+def _get_show_table(show_df=None):
+    if show_df is None: show_df = _get_main_df()
     show_df = show_df[[
         'target_player_name', 'chara_name_1p', 'chara_name_2p',
         'category', 'target_player_is_win', 'game_start_datetime', 
         'game_start_url'
     ]]
     show_df = show_df.replace('https(.*)', r"<a href=https\1 target='_blank'> https\1 </a>", regex=True)
-    #soup = BeautifulSoup(show_df.to_html(), 'html.parser')
-    #soup.new_tag('a', href='http://example.com/', target='_blank') 
-    #index=False, justify="center"
     # Pythonで表をHTMLに変換する https://blog.shikoan.com/python-table-html/
     show_table = f'<span style="color:#00c9b9">{show_df.style.hide().to_html()}</span>'
     print(show_table)
@@ -159,6 +152,9 @@ def _update_yt_url_title(state):
 
 def _update_show_df(state):
     state["show_df"] = _filter_df(state)
+    
+def _update_show_table(state):
+    state["show_table"] = _get_show_table(state["buf"])
 
 # STATE INIT
 
