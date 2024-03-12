@@ -110,7 +110,8 @@
             "content": {
                 "label": "Player",
                 "options": "@{player_select}",
-                "accentColor": "#00c9b9"
+                "accentColor": "#00c9b9",
+                "placeholder": ""
             },
             "parentId": "w1usu619j1zuddwm",
             "position": 0,
@@ -209,7 +210,8 @@
             "content": {
                 "label": "Category",
                 "accentColor": "#00c9b9",
-                "options": "@{category_select}"
+                "options": "@{category_select}",
+                "placeholder": ""
             },
             "parentId": "xzbjm0hr9pd8n6k7",
             "position": 0,
@@ -282,45 +284,26 @@
             },
             "visible": true
         },
-        "7ek84wfegx1gp4lx": {
-            "id": "7ek84wfegx1gp4lx",
-            "type": "dataframe",
-            "content": {
-                "dataframe": "@{show_df}",
-                "enableSearch": "",
-                "showIndex": "no",
-                "displayRowCount": "",
-                "wrapText": "yes"
-            },
-            "parentId": "k7nxc70zxx1ea8mx",
-            "position": 4,
-            "handlers": {},
-            "visible": true
-        },
-        "4rqa2qlh7o9zzwb1": {
-            "id": "4rqa2qlh7o9zzwb1",
+        "t8zr72rdug5o7i00": {
+            "id": "t8zr72rdug5o7i00",
             "type": "html",
             "content": {
-                "styles": "{\n  \"padding\": \"16px\",\n  \"min-height\": \"64px\",\n  \"min-width\": \"64px\",\n  \"border-radius\": \"8px\",\n  \"background\": \"linear-gradient(90deg, rgb(39,204,185) 0%, rgb(35,203,184) 100%)\"\n}",
-                "htmlInside": "<h2><center><a href=@{yt_url} target=\"_blank\">Go to Youtube: @{yt_title}</a></center></h2>",
-                "cssClasses": "",
-                "attrs": "",
-                "element": ""
+                "styles": "{\n  \"padding\": \"16px\",\n  \"min-height\": \"64px\",\n  \"min-width\": \"64px\",\n  \"border-color\": \"red\",\n  \"border-radius\": \"8px\",\n  \"background\": \"linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)\"\n}",
+                "htmlInside": "@{show_table}"
             },
             "parentId": "k7nxc70zxx1ea8mx",
             "position": 3,
             "handlers": {},
             "visible": true
         },
-        "32dnqt3w20loo73b": {
-            "id": "32dnqt3w20loo73b",
+        "8xwjbl0x7cwmw1wp": {
+            "id": "8xwjbl0x7cwmw1wp",
             "type": "heading",
             "content": {
-                "text": "If you input all 6 sectors, you can see the title and use the following button.",
-                "headingType": "h3",
-                "alignment": "center"
+                "text": "ssbu_dataset.analysis_table",
+                "primaryTextColor": "#18c9b9"
             },
-            "parentId": "4rqa2qlh7o9zzwb1",
+            "parentId": "t8zr72rdug5o7i00",
             "position": 0,
             "handlers": {},
             "visible": true
