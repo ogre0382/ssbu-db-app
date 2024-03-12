@@ -30,7 +30,7 @@ def _merge_df(main_df, filter_columns=[[]], querys=[], new_column=[]):
         select_dfs.append(select_df)
     return pd.concat(select_dfs, axis=0)
 
-def _get_select(main_df=_get_main_df(), filter_columns=[[]], sort_column=None, select_column=None, querys=[], new_column=[]):
+def _get_select(filter_columns=[[]], sort_column=None, select_column=None, querys=[], new_column=[], main_df=_get_main_df()):
     print(main_df)
     if len(new_column)==0: select_df = main_df[filter_columns]
     else: select_df = _merge_df(main_df, filter_columns, querys, new_column)
@@ -107,8 +107,8 @@ def _filter_df(state, filter_datetime=True):
 
 def _update_datetime_select(state):
     state["datetime_select"] = _get_select(
-        _filter_df(state, filter_datetime=False),
-        ['game_start_datetime'], 'game_start_datetime', 'game_start_datetime'
+        ['game_start_datetime'], 'game_start_datetime', 'game_start_datetime',
+        _filter_df(state, filter_datetime=False)
     )
 
 def _update_yt_url(state):
