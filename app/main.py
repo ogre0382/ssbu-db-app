@@ -6,9 +6,13 @@ from module.bq_db import SmashDatabase
 
 def update(state):
     _update_datetime_select(state)
-    #_update_yt_url_title(state)
-    #_update_show_df(state)
-    _update_show_table(state)
+    _update_show_df_table(state)
+
+def handle_download_button_click(state):
+
+	# Increment counter when the button is clicked
+
+	state["counter"] += 1
 
 # LOAD DATA
 
@@ -21,15 +25,6 @@ def _get_main_df():
     main_df.loc[main_df["target_player_is_win"]=="False", "target_player_is_win"] = "Lose"
     return main_df
 
-def _get_df():
-    ssbu_db = SmashDatabase('ssbu_dataset')
-    main_df = ssbu_db.select_analysis_data()
-    # main_df.loc[:, 'target_player_is_win'] = main_df.loc[:, 'target_player_is_win'].astype(str)
-    # # [Python] pandas 条件抽出した行の特定の列に、一括で値を設定する https://note.com/kohaku935/n/n5836a09b96a6
-    # main_df.loc[main_df["target_player_is_win"]=="True", "target_player_is_win"] = "Win"
-    # main_df.loc[main_df["target_player_is_win"]=="False", "target_player_is_win"] = "Lose"
-    return main_df
-
 def _merge_df(main_df, filter_columns=[[]], querys=[], new_column=[]):
     select_dfs = []
     for i,filter_column in enumerate(filter_columns):
@@ -40,17 +35,17 @@ def _merge_df(main_df, filter_columns=[[]], querys=[], new_column=[]):
     return pd.concat(select_dfs, axis=0)
 
 def _get_select(filter_columns=[[]], sort_column=None, select_column=None, querys=[], new_column=[], main_df=_get_main_df()):
-    print(main_df)
+    #print(main_df)
     if len(new_column)==0: select_df = main_df[filter_columns]
     else: select_df = _merge_df(main_df, filter_columns, querys, new_column)
-    print(select_df)
+    #print(select_df)
     select_df = select_df.sort_values(sort_column)
     select_df = select_df[[select_column]]
     select_df = select_df[~select_df.duplicated(keep='first')]
     select_df = select_df[select_column]
     select_dict = select_df.to_dict()
     # Pythonで辞書同士を結合（連結・マージ） https://note.nkmk.me/python-dict-merge/
-    select_dict = {"[RESET]": "[RESET]"} | {v: v for v in select_dict.values()}
+    select_dict = {v: v for v in select_dict.values()}
     return select_dict
 
 def _get_player_select():
@@ -85,48 +80,36 @@ def _get_datetime_select():
         ['game_start_datetime'], 'game_start_datetime', 'game_start_datetime'
     )
 
-def _get_show_df():
-    main_df = _get_main_df()
-    return main_df[[
-        'target_player_name', 'chara_name_1p', 'chara_name_2p',
-        'category', 'target_player_is_win', 'game_start_datetime',
-        'game_start_url'
-    ]]
-    # show_df = main_df[['title', 'game_start_url']]
-    # #'<a href="http://www.google.com/" target="_blank">Button</a>'
-    # show_df = show_df.replace('https(.*)', r"<a href=https\1 target='_blank'> https\1 </a>", regex=True)
-    # #show_df['game_start_url'] = f"<a href={show_df['game_start_url']} target='_blank'>{show_df['game_start_url']}</a>"
-    # return show_df
-    
-def _get_show_table(show_df=None):
-    if show_df is None: show_df = _get_main_df()
-    show_df = show_df[[
+def _get_show_df(show_df=_get_main_df()):
+    return show_df[[
         'target_player_name', 'chara_name_1p', 'chara_name_2p',
         'category', 'target_player_is_win', 'game_start_datetime', 
         'game_start_url'
     ]]
+
+def _get_show_table(show_df=_get_show_df()):
     show_df = show_df.replace('https(.*)', r"<a href=https\1 target='_blank'> https\1 </a>", regex=True)
     # Pythonで表をHTMLに変換する https://blog.shikoan.com/python-table-html/
-    show_table = f'<span style="color:#00c9b9">{show_df.style.hide().to_html()}</span>'
-    print(show_table)
+    show_table = f'<span style="color:#000000">{show_df.style.hide().to_html()}</span>'
+    #print(show_table)
     return show_table
     
-
 # UPDATES
 
 def _filter_df(state, filter_datetime=True):
+    if len(state["show_df"])<=1: state["filter"]["datetime"]=None
     show_df = state["buf_df"]
-    if state["filter"]["player"] not in [None, "[RESET]"]:
+    if state["filter"]["player"]!=None:
         show_df = show_df.query(f'target_player_name == "{state["filter"]["player"]}"')
-    if state["filter"]["fighter"] not in [None, "[RESET]"]:
+    if state["filter"]["fighter"]!=None:
         show_df = show_df.query(f'chara_name_1p == "{state["filter"]["fighter"]}" or chara_name_2p == "{state["filter"]["fighter"]}"')
-    if state["filter"]["vs_fighter"] not in [None, "[RESET]"]:
+    if state["filter"]["vs_fighter"]!=None:
         show_df = show_df.query(f'chara_name_1p == "{state["filter"]["vs_fighter"]}" or chara_name_2p == "{state["filter"]["vs_fighter"]}"')
-    if state["filter"]["category"] not in [None, "[RESET]"]:
+    if state["filter"]["category"]!=None:
         show_df = show_df.query(f'category == "{state["filter"]["category"]}"')
-    if state["filter"]["win_lose"] not in [None, "[RESET]"]:
+    if state["filter"]["win_lose"]!=None:
         show_df = show_df.query(f'target_player_is_win == "{state["filter"]["win_lose"]}"')
-    if state["filter"]["datetime"] not in [None, "[RESET]"] and filter_datetime:
+    if state["filter"]["datetime"]!=None and filter_datetime:
         show_df = show_df.query(f'game_start_datetime == "{state["filter"]["datetime"]}"')
     return show_df
 
@@ -136,25 +119,9 @@ def _update_datetime_select(state):
         main_df=_filter_df(state, filter_datetime=False)
     )
 
-def _update_yt_url_title(state):
-    show_df = state["show_df"]
-    #print([True for v in [None, "[RESET]"] if v not in state["filter"].get_mutations_as_dict().values()])
-    #if all(True for v in [None, "[RESET]"] if v not in state["filter"].get_mutations_as_dict().values()):
-    print([False for v in [None, "[RESET]"] if v in state["filter"].get_mutations_as_dict().values()])
-    if all(False for v in [None, "[RESET]"] if v in state["filter"].get_mutations_as_dict().values()):
-        state["yt_url"] = "https://www.youtube.com/"
-        state["yt_title"] = "[YouTube Title]"
-    else:    
-        main_df = state["main_df"]
-        main_df = main_df.set_index("game_start_datetime")
-        state["yt_url"] = main_df.at[f'{show_df.iloc[0,5]}', 'game_start_url']
-        state["yt_title"] = main_df.at[f'{show_df.iloc[0,5]}', 'title']
-
-def _update_show_df(state):
+def _update_show_df_table(state):
     state["show_df"] = _filter_df(state)
-    
-def _update_show_table(state):
-    state["show_table"] = _get_show_table(state["buf"])
+    state["show_table"] = _get_show_table(state["show_df"])
 
 # STATE INIT
 
@@ -174,9 +141,7 @@ initial_state = ss.init_state({
     "category_select": _get_category_select(),
     "win_lose_select": _get_win_lose_select(),
     "datetime_select": _get_datetime_select(),
-    "yt_url": "https://www.youtube.com/",
-    "yt_title": "[YouTube Title]",
     "show_df": _get_show_df(),
+    "show_table": _get_show_table(),
     "buf_df": _get_show_df(),
-    "show_table": _get_show_table()
 })

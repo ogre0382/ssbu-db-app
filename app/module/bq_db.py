@@ -221,7 +221,7 @@ class SmashDatabase(BigqueryDatabase):
     
     def select_analysis_data(self):
         df = super().select_my_data('analysis_table', ('*',))
-        df = df.sort_values('id')
+        df = df.sort_values('game_start_datetime')
         df.loc[:, 'game_start_datetime'] = df.loc[:, 'game_start_datetime'].astype(str)
         return df[list(self.drop_analysis_item)]
     

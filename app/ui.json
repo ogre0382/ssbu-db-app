@@ -63,23 +63,9 @@
             "content": {
                 "text": "SSBU 1on1 DataBase Viewer APP",
                 "cssClasses": "",
-                "accentColor": "#00c9b9"
+                "accentColor": "#125FA8"
             },
             "parentId": "k7nxc70zxx1ea8mx",
-            "position": 0,
-            "handlers": {},
-            "visible": true
-        },
-        "86ogb2k64723a6wt": {
-            "id": "86ogb2k64723a6wt",
-            "type": "button",
-            "content": {
-                "text": "Download SSBU 1on1 YouTube Collection APP",
-                "buttonTextColor": "#00c9b9",
-                "icon": "download",
-                "separatorColor": "#00c9b9"
-            },
-            "parentId": "uojfzy9ieosetokc",
             "position": 0,
             "handlers": {},
             "visible": true
@@ -110,7 +96,7 @@
             "content": {
                 "label": "Player",
                 "options": "@{player_select}",
-                "accentColor": "#00c9b9",
+                "accentColor": "#125FA8",
                 "placeholder": ""
             },
             "parentId": "w1usu619j1zuddwm",
@@ -141,7 +127,7 @@
             "content": {
                 "label": "Fighter",
                 "options": "@{fighter_select}",
-                "accentColor": "#00c9b9"
+                "accentColor": "#125FA8"
             },
             "parentId": "te3vkz69edk70dey",
             "position": 0,
@@ -171,7 +157,7 @@
             "content": {
                 "label": "vs Fighter",
                 "options": "@{vs_fighter_select}",
-                "accentColor": "#00c9b9"
+                "accentColor": "#125FA8"
             },
             "parentId": "tr125jpidbhha1xa",
             "position": 0,
@@ -209,7 +195,7 @@
             "type": "selectinput",
             "content": {
                 "label": "Category",
-                "accentColor": "#00c9b9",
+                "accentColor": "#125FA8",
                 "options": "@{category_select}",
                 "placeholder": ""
             },
@@ -241,7 +227,7 @@
             "content": {
                 "label": "Win or Lose",
                 "options": "@{win_lose_select}",
-                "accentColor": "#00c9b9"
+                "accentColor": "#125FA8"
             },
             "parentId": "taf0oexkvh5lfxgh",
             "position": 0,
@@ -271,7 +257,7 @@
             "content": {
                 "label": "Datetime",
                 "options": "@{datetime_select}",
-                "accentColor": "#00c9b9"
+                "accentColor": "#125FA8"
             },
             "parentId": "9b8nqcqmjp3kteb3",
             "position": 0,
@@ -300,10 +286,36 @@
             "id": "8xwjbl0x7cwmw1wp",
             "type": "heading",
             "content": {
-                "text": "ssbu_dataset.analysis_table",
-                "primaryTextColor": "#18c9b9"
+                "text": "[ssbu_dataset.analysis_table]",
+                "headingType": "h2",
+                "cssClasses": ""
             },
             "parentId": "t8zr72rdug5o7i00",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "h8vuwmqvva1oz0xl": {
+            "id": "h8vuwmqvva1oz0xl",
+            "type": "html",
+            "content": {
+                "element": "",
+                "styles": "{\n  \"padding\": \"16px\",\n  \"min-height\": \"64px\",\n  \"min-width\": \"64px\",\n  \"border-color\": \"red\",\n  \"border-radius\": \"8px\",\n  \"background\": \"linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)\"\n}",
+                "htmlInside": "<a href=https://github.com/ogre0382/ssbu-yt-app/archive/refs/heads/main.zip download=ssbu-yt-app.exe.coming_soon.txt>SSBU 1on1 YouTube Collection APP</a>"
+            },
+            "parentId": "uojfzy9ieosetokc",
+            "position": 0,
+            "handlers": {},
+            "visible": true
+        },
+        "ki6adlqo3zicccnq": {
+            "id": "ki6adlqo3zicccnq",
+            "type": "heading",
+            "content": {
+                "text": "Download:",
+                "headingType": "h3"
+            },
+            "parentId": "h8vuwmqvva1oz0xl",
             "position": 0,
             "handlers": {},
             "visible": true
