@@ -91,6 +91,7 @@ def _get_show_table(show_df=_get_show_df()):
     show_df = show_df.replace('https(.*)', r"<a href=https\1 target='_blank'> https\1 </a>", regex=True)
     # Pythonで表をHTMLに変換する https://blog.shikoan.com/python-table-html/
     show_table = f'<span style="color:#000000">{show_df.style.hide().to_html()}</span>'
+    show_table = show_table.replace('<table id="T_bc198">', '<table id="T_bc198" border=1>')
     print(show_table)
     return show_table
     
