@@ -8,12 +8,6 @@ def update(state):
     _update_datetime_select(state)
     _update_show_df_table(state)
 
-def handle_download_button_click(state):
-
-	# Increment counter when the button is clicked
-
-	state["counter"] += 1
-
 # LOAD DATA
 
 def _get_main_df():
