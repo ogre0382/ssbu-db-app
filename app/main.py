@@ -12,12 +12,7 @@ def update(state):
 
 def _get_main_df():
     ssbu_db = SmashDatabase('ssbu_dataset')
-    main_df = ssbu_db.select_analysis_data()
-    main_df.loc[:, 'target_player_is_win'] = main_df.loc[:, 'target_player_is_win'].astype(str)
-    # [Python] pandas 条件抽出した行の特定の列に、一括で値を設定する https://note.com/kohaku935/n/n5836a09b96a6
-    main_df.loc[main_df["target_player_is_win"]=="True", "target_player_is_win"] = "Win"
-    main_df.loc[main_df["target_player_is_win"]=="False", "target_player_is_win"] = "Lose"
-    return main_df
+    return ssbu_db.select_analysis_data()
 
 def _merge_df(main_df, filter_columns=[[]], querys=[], new_column=[]):
     select_dfs = []
@@ -85,7 +80,7 @@ def _get_show_table(show_df=_get_show_df()):
     show_df = show_df.replace('https(.*)', r"<a href=https\1 target='_blank'> https\1 </a>", regex=True)
     # Pythonで表をHTMLに変換する https://blog.shikoan.com/python-table-html/
     show_table = f'<span style="color:#000000">{show_df.style.hide().to_html()}</span>'
-    show_table = show_table.replace('<table id="T_bc198">', '<table id="T_bc198" border=1>')
+    # show_table = show_table.replace('table id(.*)"', r'table id\1 border=1"', regex=True)
     print(show_table)
     return show_table
     

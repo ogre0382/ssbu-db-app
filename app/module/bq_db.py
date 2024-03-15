@@ -7,10 +7,11 @@ import string
 import sys
 from datetime import datetime, timedelta, timezone
 JST = timezone(timedelta(hours=+9), 'JST')
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 from functools import wraps
 from google.oauth2 import service_account
 from google.cloud import bigquery
+from os.path import join, dirname
 
 def stop_watch(func):
     @wraps(func)
@@ -29,8 +30,9 @@ class BigqueryDatabase:
         self.dataset_ref = f'{self.client.project}.{dataset_name}'
 
     # PythonからGCPへ接続するときの認証設定 https://qiita.com/R_plapla/items/a228c76cdf39456fd262
+    # python-dotenvを使って環境変数を設定する https://qiita.com/harukikaneko/items/b004048f8d1eca44cba9
     def get_my_client(self):
-        if sys.platform in ('win32', 'cygwin'): load_dotenv(find_dotenv())
+        if sys.platform in ('win32', 'cygwin'): load_dotenv(join(dirname(__file__), '.env'))
         account = {
             "type": "service_account",
             "project_id": os.environ.get("GCP_PROJECT_ID"),
@@ -223,7 +225,12 @@ class SmashDatabase(BigqueryDatabase):
         df = super().select_my_data('analysis_table', ('*',))
         df = df.sort_values('game_start_datetime')
         df.loc[:, 'game_start_datetime'] = df.loc[:, 'game_start_datetime'].astype(str)
-        return df[list(self.drop_analysis_item)]
+        df = df[list(self.drop_analysis_item)]
+        df.loc[:, 'target_player_is_win'] = df.loc[:, 'target_player_is_win'].astype(str)
+        # [Python] pandas 条件抽出した行の特定の列に、一括で値を設定する https://note.com/kohaku935/n/n5836a09b96a6
+        df.loc[df["target_player_is_win"]=="True", "target_player_is_win"] = "Win"
+        df.loc[df["target_player_is_win"]=="False", "target_player_is_win"] = "Lose"
+        return df
     
 def main2():
     ssbu_db = SmashDatabase('ssbu_dataset')
