@@ -1,0 +1,27 @@
+{
+    ""
+    "name": "Dev Container",
+    "dockerComposeFile": "../app/docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/app",
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-python.python",
+          "njqdev.vscode-python-docstring",
+          "magicstack.MagicPython",
+          "ms-python.vscode-pylance",
+          "kevinrose.vsc-python-indent",
+          "esbenp.prettier-vscode",
+          "microsoft.vscode-docker",
+          "njpwerner.autodocstring"
+        ]
+      }
+    },
+    "remoteUser": "root",
+    "shutdownAction": "stopCompose"
+  }
+  

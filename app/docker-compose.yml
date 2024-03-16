@@ -1,0 +1,24 @@
+# Windows＆Docker開発環境で作ったImageをそのままAWS Lambdaにのせる方法 https://qiita.com/sasayakadopono/items/cfc7479fff3b685b3932#docker-composeyml
+
+version: '3'
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${DOCKER_ACCOUNT_ID}/${DOCKER_IMAGE_NAME}
+    container_name: ${DOCKER_CONTAINER_NAME}
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "9000:8080"
+    environment:
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
+      GCS_PRIVATE_KEY_ID: ${GCS_PRIVATE_KEY_ID}
+      GCS_PRIVATE_KEY: ${GCS_PRIVATE_KEY}
+      GCS_CLIENT_MAIL: ${GCS_CLIENT_MAIL}
+      GCS_CLIENT_ID: ${GCS_CLIENT_ID}
+      GCS_CLIENT_X509_CERT_URL: ${GCS_CLIENT_X509_CERT_URL}
+    env_file:
+      - ./.env

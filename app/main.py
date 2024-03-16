@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import streamsync as ss
 from module.bq_db import SmashDatabase
@@ -115,23 +116,36 @@ def _update_show_df_table(state):
 
 # STATE INIT
 
-initial_state = ss.init_state({
-    "main_df": _get_main_df(),
-    "filter": {
-        "player": None,
-        "fighter": None,
-        "vs_fighter": None,
-        "category": None,
-        "win_lose": None,
-        "datetime": None
-    },
-    "player_select": _get_player_select(),
-    "fighter_select": _get_fighter_select(),
-    "vs_fighter_select": _get_vs_fighter_select(),
-    "category_select": _get_category_select(),
-    "win_lose_select": _get_win_lose_select(),
-    "datetime_select": _get_datetime_select(),
-    "show_df": _get_show_df(),
-    "show_table": _get_show_table(),
-    "buf_df": _get_show_df(),
-})
+# initial_state = ss.init_state({
+#     "main_df": _get_main_df(),
+#     "filter": {
+#         "player": None,
+#         "fighter": None,
+#         "vs_fighter": None,
+#         "category": None,
+#         "win_lose": None,
+#         "datetime": None
+#     },
+#     "player_select": _get_player_select(),
+#     "fighter_select": _get_fighter_select(),
+#     "vs_fighter_select": _get_vs_fighter_select(),
+#     "category_select": _get_category_select(),
+#     "win_lose_select": _get_win_lose_select(),
+#     "datetime_select": _get_datetime_select(),
+#     "show_df": _get_show_df(),
+#     "show_table": _get_show_table(),
+#     "buf_df": _get_show_df(),
+# })
+account = {
+    "type": "service_account",
+    "project_id": os.environ.get("GCP_PROJECT_ID"),
+    "private_key_id": os.environ.get("GCS_PRIVATE_KEY_ID"),
+    "private_key": os.environ.get("GCS_PRIVATE_KEY"),
+    "client_email": os.environ.get("GCS_CLIENT_MAIL"),
+    "client_id": os.environ.get("GCS_CLIENT_ID"),
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": os.environ.get("GCS_CLIENT_X509_CERT_URL")
+}
+print(account)
