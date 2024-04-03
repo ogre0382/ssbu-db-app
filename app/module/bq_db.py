@@ -212,7 +212,7 @@ class SmashDatabase(BigqueryDatabase):
         super().insert_my_data('chara_table', self.chara_item, self.chara_insert_data)
         
     def create_analysis_table(self):
-        super().create_my_table('analysis_table', self.analysis_item_type)
+        super().create_my_table('analysis_table_2', self.analysis_item_type)
     
     def insert_analysis_data(self, table_name=None, insert_item=None, insert_data=None, main_data_index=-1):
         return super().insert_my_data(table_name, insert_item, insert_data, main_data_index)
@@ -222,7 +222,7 @@ class SmashDatabase(BigqueryDatabase):
         return df.sort_values('id')
     
     def select_analysis_data(self):
-        df = super().select_my_data('analysis_table', ('*',))
+        df = super().select_my_data('analysis_table_2', ('*',))
         df = df.sort_values('game_start_datetime')
         df.loc[:, 'game_start_datetime'] = df.loc[:, 'game_start_datetime'].astype(str)
         df = df[list(self.drop_analysis_item)]
